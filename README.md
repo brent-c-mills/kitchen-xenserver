@@ -17,7 +17,7 @@ A Test Kitchen Driver for Xenserver.
 gem build ./kitchen-xenserver.gemspec
 ```
 
-***To install the gem***
+**To install the gem**
 ```bash
 sudo chef gem install --local ./kitchen-xenserver-1.0.1.gem
 ```
