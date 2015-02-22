@@ -14,6 +14,16 @@ A Test Kitchen Driver for Xenserver.
 
 Please read the [Driver usage][driver_usage] page for more details.
 
+## <a name="deficiencies"></a> Known Deficiencies / Future Functionality
+
+The initial version of this Kitchen driver was developed to meet the minimum required functionality.
+The following are known deficiencies that will be corrected with future development.
+
+* default_config[] in xenserver.rb are not overwritten by driver configs in .kitchen.yml file.
+* server_name and ip_address are both static, thus only one VM can be spawned at a time.
+* Xenserver connection (self.connection) is not set to use SSH keys for secure auth.
+* Xenserver connection (self.connection) does not currently pull variables from default_config[] or .kitchen.yml file.
+
 ## <a name="config"></a> Configuration
 
 Configurations should be made in kitchen-xenserver/lib/kitchen/driver/xenserver.rb.
