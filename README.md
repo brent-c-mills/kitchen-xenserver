@@ -21,13 +21,13 @@ Configurations are broken down in the following sections:
 
 **VM CONFIGS**
 | VARIABLE            | DESCRIPTION                                       |
-|:--------------------|:--------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | :server_name        | Desired VM name for VMs created by Test Kitchen.  |
 | :server_template    | Template from which VMs will be cloned.           |
 
 **VM SSH CONFIGS**
 | VARIABLE            | DESCRIPTION                                       |
-|:--------------------|:--------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | :username           | SSH username for created VMs.                     |
 | :password           | SSH password for created VMs.                     |
 | :ip_address         | Static IP address for created VMs.                |
@@ -37,7 +37,7 @@ Configurations are broken down in the following sections:
 
 **CONNECTION CONFIGS** (Set inside the self.connection method.)
 | VARIABLE            | DESCRIPTION                                       |
-|:--------------------|:--------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | :provider           | Xenserver.                                        |
 | :xenserver_url      | Xenserver IP Address.                             |
 | :xenserver_username | Xenserver Username.                               |
