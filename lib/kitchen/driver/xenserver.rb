@@ -42,8 +42,11 @@ module Kitchen
       default_config :ssh_timeout, 3
       default_config :ssh_retries, 50
 
+      #XENSERVER CONFIGS
+      default_config :storage_repo, 'XENSERVER_STORAGE_REPO'
+
+      #CONNECTION CONFIGS (Set to match your Xenserver instance)
       def self.connection
-        #CONNECTION CONFIGS (Set to match your Xenserver instance)
         conn = Fog::Compute.new({
           :provider           => 'Xenserver',
           :xenserver_url      => 'XENSERVER_URL',
@@ -65,7 +68,7 @@ module Kitchen
       end
 
       def create_server
-        sr = Xenserver.connection.storage_repositories.find { |sr| sr.name ==  "ntap-vm-2.bur.us.genops" }
+        sr = Xenserver.connection.storage_repositories.find { |sr| sr.name ==  config[:storage_repo] }
         image_uuid = UUIDTools::UUID.random_create.to_s
         sr_mount_point = "/var/run/sr-mount/#{sr.uuid}"
         destination = File.join(sr_mount_point, "#{image_uuid}.vhd")
