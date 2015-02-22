@@ -57,6 +57,12 @@ Configurations are broken down in the following sections:
 | :ssh_timeout        | SSH timeout for created VMs.                      |
 | :ssh_retries        | SSH retries for created VMs.                      |
 
+**XENSERVER CONFIGS**
+
+| VARIABLE            | DESCRIPTION                                       |
+| ------------------- | ------------------------------------------------- |
+| :storage_repo       | Desired storage repo to be used for created VMs.  |
+
 **CONNECTION CONFIGS** (Set inside the self.connection method.)
 
 | VARIABLE            | DESCRIPTION                                       |
