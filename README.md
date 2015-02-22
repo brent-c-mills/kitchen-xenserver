@@ -99,7 +99,7 @@ example:
 
 ## <a name="authors"></a> Authors
 
-Created and maintained by [Brent Mills][author] (<brent.mills@genesys.com>)
+Created and maintained by [Brent Mills][author] (<brent.c.mills@gmail.com>)
 
 ## <a name="license"></a> License
 

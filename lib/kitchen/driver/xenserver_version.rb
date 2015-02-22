@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 #
-# Author:: Brent Mills (<brent.mills@genesys.com>)
+# Author:: Brent Mills (<brent.c.mills@gmail.com>)
 #
 # Copyright (C) 2015, Brent Mills
 #

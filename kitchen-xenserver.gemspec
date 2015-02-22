@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'kitchen-xenserver'
   spec.version       = Kitchen::Driver::XENSERVER_VERSION
   spec.authors       = ['Brent Mills']
-  spec.email         = ['brent.mills@genesys.com']
+  spec.email         = ['brent.c.mills@gmail.com']
   spec.description   = %q{A Test Kitchen Driver for Xenserver}
   spec.summary       = spec.description
   spec.homepage      = 'https://github.com/kaizoku0506/kitchen-xenserver'
