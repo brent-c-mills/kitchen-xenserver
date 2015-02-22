@@ -20,22 +20,28 @@ Configurations should be made in kitchen-xenserver/lib/kitchen/driver/xenserver.
 Configurations are broken down in the following sections:
 
 **VM CONFIGS**
-* :server_name        => Desired VM name for VMs created by Test Kitchen.
-* :server_template    => Template from which VMs will be cloned.
+| VARIABLE            | DESCRIPTION                                       |
+|:--------------------|:--------------------------------------------------|
+| :server_name        | Desired VM name for VMs created by Test Kitchen.  |
+| :server_template    | Template from which VMs will be cloned.           |
 
 **VM SSH CONFIGS**
-* :username           => SSH username for created VMs.
-* :password           => SSH password for created VMs.
-* :ip_address         => Static IP address for created VMs.
-* :port               => SSH port for created VMs.
-* :ssh_timeout        => SSH timeout for created VMs.
-* :ssh_retries        => SSH retries for created VMs.
+| VARIABLE            | DESCRIPTION                                       |
+|:--------------------|:--------------------------------------------------|
+| :username           | SSH username for created VMs.                     |
+| :password           | SSH password for created VMs.                     |
+| :ip_address         | Static IP address for created VMs.                |
+| :port               | SSH port for created VMs.                         |
+| :ssh_timeout        | SSH timeout for created VMs.                      |
+| :ssh_retries        | SSH retries for created VMs.                      |
 
 **CONNECTION CONFIGS** (Set inside the self.connection method.)
-* :provider           => Xenserver.
-* :xenserver_url      => Xenserver IP Address.
-* :xenserver_username => Xenserver Username.
-* :xenserver_password => Xenserver Password.
+| VARIABLE            | DESCRIPTION                                       |
+|:--------------------|:--------------------------------------------------|
+| :provider           | Xenserver.                                        |
+| :xenserver_url      | Xenserver IP Address.                             |
+| :xenserver_username | Xenserver Username.                               |
+| :xenserver_password | Xenserver Password.                               |
 
 ### <a name="config-require-chef-omnibus"></a> require\_chef\_omnibus
 
