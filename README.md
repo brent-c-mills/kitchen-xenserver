@@ -12,6 +12,16 @@ A Test Kitchen Driver for Xenserver.
 
 ## <a name="installation"></a> Installation and Setup
 
+**To compile the gem**
+```bash
+gem build ./kitchen-xenserver.gemspec
+```
+
+***To install the gem***
+```bash
+sudo chef gem install --local ./kitchen-xenserver-1.0.1.gem
+```
+
 Please read the [Driver usage][driver_usage] page for more details.
 
 ## <a name="deficiencies"></a> Known Deficiencies / Future Functionality
