@@ -4,9 +4,11 @@ A Test Kitchen Driver for Xenserver.
 
 ## <a name="requirements"></a> Requirements
 
-**TODO:** document any software or library prerequisites that are required to
-use this driver. Implement the `#verify_dependencies` method in your Driver
-class to enforce these requirements in code, if possible.
+* [kitchen]       => (http://kitchen-ci.org/)
+* [json]          => (https://rubygems.org/gems/json)
+* [fog]           => (http://fog.io/)
+* [uuidtools]     => (https://rubygems.org/gems/uuidtools)
+* [fog-xenserver] => (https://github.com/fog/fog-xenserver)
 
 ## <a name="installation"></a> Installation and Setup
 
@@ -14,7 +16,26 @@ Please read the [Driver usage][driver_usage] page for more details.
 
 ## <a name="config"></a> Configuration
 
-**TODO:** Write descriptions of all configuration options
+Configurations should be made in kitchen-xenserver/lib/kitchen/driver/xenserver.rb.
+Configurations are broken down in the following sections:
+
+**VM CONFIGS**
+* :server_name        => Desired VM name for VMs created by Test Kitchen.
+* :server_template    => Template from which VMs will be cloned.
+
+**VM SSH CONFIGS**
+* :username           => SSH username for created VMs.
+* :password           => SSH password for created VMs.
+* :ip_address         => Static IP address for created VMs.
+* :port               => SSH port for created VMs.
+* :ssh_timeout        => SSH timeout for created VMs.
+* :ssh_retries        => SSH retries for created VMs.
+
+**CONNECTION CONFIGS** (Set inside the self.connection method.)
+* :provider           => Xenserver.
+* :xenserver_url      => Xenserver IP Address.
+* :xenserver_username => Xenserver Username.
+* :xenserver_password => Xenserver Password.
 
 ### <a name="config-require-chef-omnibus"></a> require\_chef\_omnibus
 
