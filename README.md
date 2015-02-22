@@ -20,12 +20,14 @@ Configurations should be made in kitchen-xenserver/lib/kitchen/driver/xenserver.
 Configurations are broken down in the following sections:
 
 **VM CONFIGS**
+
 | VARIABLE            | DESCRIPTION                                       |
 |---------------------|---------------------------------------------------|
 | :server_name        | Desired VM name for VMs created by Test Kitchen.  |
 | :server_template    | Template from which VMs will be cloned.           |
 
 **VM SSH CONFIGS**
+
 | VARIABLE            | DESCRIPTION                                       |
 |---------------------|---------------------------------------------------|
 | :username           | SSH username for created VMs.                     |
@@ -36,6 +38,7 @@ Configurations are broken down in the following sections:
 | :ssh_retries        | SSH retries for created VMs.                      |
 
 **CONNECTION CONFIGS** (Set inside the self.connection method.)
+
 | VARIABLE            | DESCRIPTION                                       |
 |---------------------|---------------------------------------------------|
 | :provider           | Xenserver.                                        |
