@@ -123,14 +123,6 @@ module Kitchen
           info("Server #{config[:server_name]} has been shut down cleanly.")
         end
       end
-
-#      def verify(state)
-#        Kitchen::SSH.new(config[:ip_address], config[:username], password: config[:password]) do |conn|
-#          run_remote(busser.sync_cmd, conn)
-#          run_remote(busser.run_cmd, conn)
-#        end
-#      end
-
     end
   end
 end
