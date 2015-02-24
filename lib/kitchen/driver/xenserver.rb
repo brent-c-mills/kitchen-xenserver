@@ -38,6 +38,7 @@ module Kitchen
       default_config :username, 'root'
       default_config :password, 'VM_PASSWORD'
       default_config :ip_address, 'VM_STATIC_IP'
+      default_config :hostname, 'VM_STATIC_HOSTNAME / IP' #This variable is used by 'kitchen verify' for SSH.
       default_config :port, '22'
       default_config :ssh_timeout, 3
       default_config :ssh_retries, 50
@@ -122,14 +123,6 @@ module Kitchen
           info("Server #{config[:server_name]} has been shut down cleanly.")
         end
       end
-
-      def verify(state)
-        Kitchen::SSH.new(config[:ip_address], config[:username], password: config[:password]) do |conn|
-          run_remote(busser.sync_cmd, conn)
-          run_remote(busser.run_cmd, conn)
-        end
-      end
-
     end
   end
 end
