@@ -21,6 +21,6 @@ module Kitchen
   module Driver
 
     # Version string for Xenserver Kitchen driver
-    XENSERVER_VERSION = "0.1.0"
+    XENSERVER_VERSION = "0.1.1"
   end
 end
