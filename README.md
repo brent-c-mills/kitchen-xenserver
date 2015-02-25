@@ -48,14 +48,15 @@ Configurations are broken down in the following sections:
 
 **VM SSH CONFIGS**
 
-| VARIABLE            | DESCRIPTION                                       |
-| ------------------- | ------------------------------------------------- |
-| :username           | SSH username for created VMs.                     |
-| :password           | SSH password for created VMs.                     |
-| :ip_address         | Static IP address for created VMs.                |
-| :port               | SSH port for created VMs.                         |
-| :ssh_timeout        | SSH timeout for created VMs.                      |
-| :ssh_retries        | SSH retries for created VMs.                      |
+| VARIABLE            | DESCRIPTION                                              |
+| ------------------- | -------------------------------------------------------- |
+| :username           | SSH username for created VMs.                            |
+| :password           | SSH password for created VMs.                            |
+| :ip_address         | Static IP address for created VMs.                       |
+| :hostname           | DNS resolvable hostname (or IP address) for created VMs. |
+| :port               | SSH port for created VMs.                                |
+| :ssh_timeout        | SSH timeout for created VMs.                             |
+| :ssh_retries        | SSH retries for created VMs.                             |
 
 **XENSERVER CONFIGS**
 
