@@ -45,15 +45,18 @@ module Kitchen
 
       #XENSERVER CONFIGS
       default_config :storage_repo, 'XENSERVER_STORAGE_REPO'
+      default_config :xenserver_url, 'XENSERVER_URL'
+      default_config :xenserver_username, 'XENSERVER_USERNAME'
+      default_config :xenserver_password, 'XENSERVER_PASSWORD'
 
       #CONNECTION CONFIGS (Set to match your Xenserver instance)
-      def self.connection
+      def connection
         conn = Fog::Compute.new({
           :provider           => 'Xenserver',
-          :xenserver_url      => 'XENSERVER_URL',
-          :xenserver_username => 'XENSERVER_USERNAME',
-          :xenserver_password => 'XENSERVER_PASSWORD',
-        })
+          :xenserver_url      => config[:xenserver_url],
+          :xenserver_username => config[:xenserver_username],
+          :xenserver_password => config[:xenserver_password],
+          })
       end
       
       def create(state)
@@ -69,14 +72,14 @@ module Kitchen
       end
 
       def create_server
-        sr = Xenserver.connection.storage_repositories.find { |sr| sr.name ==  config[:storage_repo] }
+        sr = connection.storage_repositories.find { |sr| sr.name ==  config[:storage_repo] }
         image_uuid = UUIDTools::UUID.random_create.to_s
         sr_mount_point = "/var/run/sr-mount/#{sr.uuid}"
         destination = File.join(sr_mount_point, "#{image_uuid}.vhd")
         sr.scan
 
-        Xenserver.connection.servers.create   :name           => config[:server_name],
-                                              :template_name  => config[:server_template]
+        connection.servers.create   :name           => config[:server_name],
+                                    :template_name  => config[:server_template]
       end
 
       def converge(state)
@@ -110,7 +113,7 @@ module Kitchen
       end
 
       def get_server
-        Xenserver.connection.servers.find { |server| server.name == config[:server_name] }
+        connection.servers.find { |server| server.name == config[:server_name] }
       end
 
       def shutdown_server
