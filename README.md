@@ -12,6 +12,8 @@ A Test Kitchen Driver for Xenserver.
 
 ## <a name="installation"></a> Installation and Setup
 
+*For full instructions, see the [kitchen-xenserver wiki](https://github.com/kaizoku0506/kitchen-xenserver/wiki).*
+
 **To compile the gem**
 ```bash
 gem build ./kitchen-xenserver.gemspec
@@ -29,10 +31,9 @@ Please read the [Driver usage][driver_usage] page for more details.
 The initial version of this Kitchen driver was developed to meet the minimum required functionality.
 The following are known deficiencies that will be corrected with future development.
 
-* default_config[] in xenserver.rb are not overwritten by driver configs in .kitchen.yml file.
+* default_config in xenserver.rb is not overwritten by driver_config in .kitchen.yml file.
 * server_name and ip_address are both static, thus only one VM can be spawned at a time.
-* Xenserver connection (self.connection) is not set to use SSH keys for secure auth.
-* Xenserver connection (self.connection) does not currently pull variables from default_config[] or .kitchen.yml file.
+* Xenserver connection is not set to use SSH keys for secure auth.
 
 ## <a name="config"></a> Configuration
 
@@ -63,12 +64,6 @@ Configurations are broken down in the following sections:
 | VARIABLE            | DESCRIPTION                                       |
 | ------------------- | ------------------------------------------------- |
 | :storage_repo       | Desired storage repo to be used for created VMs.  |
-
-**CONNECTION CONFIGS** (Set inside the self.connection method.)
-
-| VARIABLE            | DESCRIPTION                                       |
-| ------------------- | ------------------------------------------------- |
-| :provider           | Xenserver.                                        |
 | :xenserver_url      | Xenserver IP Address.                             |
 | :xenserver_username | Xenserver Username.                               |
 | :xenserver_password | Xenserver Password.                               |
