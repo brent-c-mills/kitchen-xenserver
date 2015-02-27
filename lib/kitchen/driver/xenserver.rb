@@ -31,23 +31,23 @@ module Kitchen
     class Xenserver < Kitchen::Driver::SSHBase
 
       #VM CONFIGS (Set to match your environment)
-      default_config :server_name, 'VM_HOSTNAME'
-      default_config :server_template, 'VM_TEMPLATE'
+      default_config :server_name, 'vmname'
+      default_config :server_template, 'vmtemplate'
 
       #VM SSH CONFIGS (Set to match your template)
       default_config :username, 'root'
-      default_config :password, 'VM_PASSWORD'
-      default_config :ip_address, 'VM_STATIC_IP'
-      default_config :hostname, 'VM_STATIC_HOSTNAME / IP' #This variable is used by 'kitchen verify' for SSH.
+      default_config :password, 'vmpassword'
+      default_config :ip_address, '0.0.0.0'
+      default_config :hostname, '0.0.0.0' #This variable is used by 'kitchen verify' for SSH.
       default_config :port, '22'
       default_config :ssh_timeout, 3
       default_config :ssh_retries, 50
 
       #XENSERVER CONFIGS
-      default_config :storage_repo, 'XENSERVER_STORAGE_REPO'
-      default_config :xenserver_url, 'XENSERVER_URL'
-      default_config :xenserver_username, 'XENSERVER_USERNAME'
-      default_config :xenserver_password, 'XENSERVER_PASSWORD'
+      default_config :storage_repo, 'storagerepo'
+      default_config :xenserver_url, '0.0.0.0'
+      default_config :xenserver_username, 'root'
+      default_config :xenserver_password, 'password'
 
       #CONNECTION CONFIGS (Set to match your Xenserver instance)
       def connection
@@ -60,12 +60,12 @@ module Kitchen
       end
       
       def create(state)
-        server = Xenserver.new.get_server
+        server = get_server
         if !server.nil?
           print("Server #{config[:server_name]} already exists.")
           return
         else
-          Xenserver.new.create_server
+          create_server
           print("Server #{config[:server_name]} has been created.")
         end
         sleep(60)
@@ -99,13 +99,13 @@ module Kitchen
       end
 
       def destroy(state)
-        server = Xenserver.new.get_server
+        server = get_server
         if server.nil?
           info("Server #{config[:server_name]} does not exist.")
           return
         else
           if server.running?
-            Xenserver.new.shutdown_server
+            shutdown_server
           end
           server.destroy
           info("Server #{config[:server_name]} has been destroyed.")
@@ -117,7 +117,7 @@ module Kitchen
       end
 
       def shutdown_server
-        server = Xenserver.new.get_server
+        server = get_server
         if server.nil?
           info("Server #{config[:server_name]} does not exist.")
           return
