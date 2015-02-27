@@ -31,14 +31,13 @@ Please read the [Driver usage][driver_usage] page for more details. (This page i
 The initial version of this Kitchen driver was developed to meet the minimum required functionality.
 The following are known deficiencies that will be corrected with future development.
 
-* default_config in xenserver.rb is not overwritten by driver_config in .kitchen.yml file.
 * server_name and ip_address are both static, thus only one VM can be spawned at a time.
 * Xenserver connection is not set to use SSH keys for secure auth.
 
 ## <a name="config"></a> Configuration
 
-Configurations should be made in kitchen-xenserver/lib/kitchen/driver/xenserver.rb.
-Configurations are broken down in the following sections:
+Configurations should be made in .kitchen.yml inside your cookbook in a "driver_config" section.
+See the [kitchen-xenserver wiki](https://github.com/kaizoku0506/kitchen-xenserver/wiki) for more details.
 
 **VM CONFIGS**
 
