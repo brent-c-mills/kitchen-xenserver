@@ -1,6 +1,6 @@
 # <a name="title"></a> Kitchen::Xenserver
 
-A Test Kitchen Driver for Xenserver.
+A Test Kitchen Driver for Xenserver. (Tested with 6.2 and 6.5)
 
 ## <a name="requirements"></a> Requirements
 
@@ -31,7 +31,8 @@ Please read the [Driver usage][driver_usage] page for more details. (This page i
 The initial version of this Kitchen driver was developed to meet the minimum required functionality.
 The following are known deficiencies that will be corrected with future development.
 
-* server_name and ip_address are both static, thus only one VM can be spawned at a time.
+* Fog-Xenserver does not have a good mechanism by which to find VM IP addresses.  Thus, a workaround has been put into place for DHCP.  see the [kitchen-xenserver wiki](https://github.com/kaizoku0506/kitchen-xenserver/wiki) for instructions.
+* When using DHCP, you must use "kitchen verify" instead of "kitchen converge" to create and verify your machine in one step.  Attempts to run verify after converge will lead to failure to SSH to user@0.0.0.0.
 * Xenserver connection is not set to use SSH keys for secure auth.
 
 ## <a name="config"></a> Configuration
@@ -59,7 +60,6 @@ See the [kitchen-xenserver wiki](https://github.com/kaizoku0506/kitchen-xenserve
 | ------------------- | -------------------------------------------------------- |
 | :username           | SSH username for created VMs.                            |
 | :password           | SSH password for created VMs.                            |
-| :ip_address         | Static IP address for created VMs.                       |
 | :hostname           | DNS resolvable hostname (or IP address) for created VMs. |
 | :port               | SSH port for created VMs.                                |
 | :ssh_timeout        | SSH timeout for created VMs.                             |
