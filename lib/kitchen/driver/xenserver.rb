@@ -30,6 +30,10 @@ module Kitchen
   module Driver
     class Xenserver < Kitchen::Driver::SSHBase
 
+      #KITCHEN-XENSERVER CONFIGS
+      default_config :overwrite_vms, 'false'
+      default_config :created_vm, 'false'
+
       #VM CONFIGS (Set to match your environment)
       default_config :server_name, 'vmname'
       default_config :server_template, 'vmtemplate'
@@ -37,8 +41,7 @@ module Kitchen
       #VM SSH CONFIGS (Set to match your template)
       default_config :username, 'root'
       default_config :password, 'vmpassword'
-      default_config :ip_address, '0.0.0.0'
-      default_config :hostname, '0.0.0.0' #This variable is used by 'kitchen verify' for SSH.
+      default_config :hostname, '0.0.0.0'
       default_config :port, '22'
       default_config :ssh_timeout, 3
       default_config :ssh_retries, 50
@@ -56,19 +59,26 @@ module Kitchen
           :xenserver_url      => config[:xenserver_url],
           :xenserver_username => config[:xenserver_username],
           :xenserver_password => config[:xenserver_password],
-          })
+        })
       end
       
       def create(state)
         server = get_server
         if !server.nil?
           print("Server #{config[:server_name]} already exists.")
+          if config[:hostname] == '0.0.0.0'
+            if server.running?
+              get_address
+            else
+              print("Server #{config[:server_name]} is not running.")
+              print("Starting server #{config[:server_name]}...")
+              server.start
+            end
+          end
           return
         else
           create_server
-          print("Server #{config[:server_name]} has been created.")
         end
-        sleep(60)
       end
 
       def create_server
@@ -80,16 +90,49 @@ module Kitchen
 
         connection.servers.create   :name           => config[:server_name],
                                     :template_name  => config[:server_template]
+
+        config[:created_vm] = 'true'
+
+        print("Server #{config[:server_name]} has been created.")
+        sleep(40)
+        if config[:hostname] == '0.0.0.0'
+          get_address
+        end
       end
 
       def converge(state)
-        print("Attempting SSH to #{config[:server_name]} at #{config[:ip_address]}:#{config[:port]} as user #{config[:username]}.")
+        server = get_server
+
+        if !server.nil?
+          if config[:created_vm] == 'true'
+            if !server.running?
+              server.start
+            end
+          else
+            if config[:overwrite_vms] == 'true'
+              print("A VM by the name of #{config[:server_name]} already exists.")
+              print("Destroying #{config[:server_name]} and overwriting...")
+              server.destroy
+              create_server
+            else
+              print("ERROR:  A VM by the name of #{config[:server_name]} already exists.")
+              return
+            end
+          end
+        end
+
+        if config[:hostname] == '0.0.0.0'
+          sleep(40)
+          get_address
+        end
+
+        print("Attempting SSH to #{config[:server_name]} at #{config[:hostname]}:#{config[:port]} as user #{config[:username]}.")
 
         provisioner = instance.provisioner
         provisioner.create_sandbox
         sandbox_dirs = Dir.glob("#{provisioner.sandbox_path}/*")
 
-        Kitchen::SSH.new(config[:ip_address], config[:username], password: config[:password]) do |conn|
+        Kitchen::SSH.new(config[:hostname], config[:username], password: config[:password]) do |conn|
           run_remote(provisioner.install_command, conn)
           run_remote(provisioner.init_command, conn)
           transfer_path(sandbox_dirs, provisioner[:root_path], conn)
@@ -113,7 +156,18 @@ module Kitchen
       end
 
       def get_server
-        connection.servers.find { |server| server.name == config[:server_name] }
+        connection.servers.get_by_name(config[:server_name])
+      end
+
+      def get_address
+        server = get_server
+        if !server.nil?
+          mac_address = server.vifs.first.mac
+          ip_address = `cat /var/lib/jenkins/dhcp_spyglass/leases.record | grep -m1 -B6 -A1 #{mac_address} | grep lease | awk '{ print $2 }' | xargs echo -n`
+          config[:hostname] = "#{ip_address}"
+          print("Existing and ip_address set to:  #{ip_address}")
+          print("Existing and Hostname set to:  #{config[:hostname]}")
+        end
       end
 
       def shutdown_server
@@ -129,4 +183,3 @@ module Kitchen
     end
   end
 end
-

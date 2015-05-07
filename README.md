@@ -39,6 +39,13 @@ The following are known deficiencies that will be corrected with future developm
 Configurations should be made in .kitchen.yml inside your cookbook in a "driver_config" section.
 See the [kitchen-xenserver wiki](https://github.com/kaizoku0506/kitchen-xenserver/wiki) for more details.
 
+**KITCHEN-XENSERVER CONFIGS**
+
+| VARIABLE            | DESCRIPTION                                                                |
+| ------------------- | -------------------------------------------------------------------------- |
+| :overwrite_vms      | Allows kitchen-xenserver to overwrite existing VMs with the same hostname. |
+| :created_vm         | Used by kitchen-xenserver to determine if a VM has been created.           |
+
 **VM CONFIGS**
 
 | VARIABLE            | DESCRIPTION                                       |
