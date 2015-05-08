@@ -31,9 +31,7 @@ module Kitchen
     class Xenserver < Kitchen::Driver::SSHBase
 
       #KITCHEN-XENSERVER CONFIGS
-      default_config :overwrite_vms do |driver|
-        ENV['OVERWRITE_VMS']
-      end
+      default_config :overwrite_vms, ENV['OVERWRITE_VMS']
       default_config :created_vm, 'false'
 
       #VM CONFIGS (Set to match your environment)
@@ -116,8 +114,10 @@ module Kitchen
               print("Destroying #{config[:server_name]} and overwriting...")
               server.destroy
               create_server
+              get_address
             else
               print("ERROR:  A VM by the name of #{config[:server_name]} already exists.")
+              print("overwrite_vms is set to #{config[:overwrite_vms]}.")
               return
             end
           end
