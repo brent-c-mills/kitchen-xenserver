@@ -31,7 +31,9 @@ module Kitchen
     class Xenserver < Kitchen::Driver::SSHBase
 
       #KITCHEN-XENSERVER CONFIGS
-      default_config :overwrite_vms, 'false'
+      default_config :overwrite_vms do |driver|
+        ENV['OVERWRITE_VMS']
+      end
       default_config :created_vm, 'false'
 
       #VM CONFIGS (Set to match your environment)
